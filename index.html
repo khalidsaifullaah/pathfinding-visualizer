@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>Document</title>
+</head>
+
+<body>
+</body>
+
+</html>
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- P5.js  -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
+  <title>Hello, world!</title>
+</head>
+
+<body>
+  <!-- <button id="somebutton" type="button" class="btn btn-success" onclick="start()">Start</button> -->
+  <div class="container-fluid w-100 m-0 p-0" style="height: 100vh;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Path Finder</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto justify-content-center">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Clear <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Algorithms
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#" onclick="dropdown(event)">A* Search</a>
+              <a class="dropdown-item" href="#" onclick="dropdown(event)">Breadth First Search</a>
+              <a class="dropdown-item" href="#" onclick="dropdown(event)">Depth First Search</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-success my-2 my-sm-0" id="startButton" type="submit">Start</button>
+          </li>
+        </ul>
+    </nav>
+
+    <div class="container-fluid pt-4 pb-4">
+      <div class="row">
+        <div class="col">
+          <div style="font-size: 23px;">
+            <span class="square"
+              style="height:20px; width:20px; background-color:rgb(87,50,168); display: inline-block;"></span>
+            Source
+          </div>
+        </div>
+        <div class="col">
+          <div style="font-size: 23px;">
+            <span class="square" style="height:20px; width:20px; background-color:rgb(140,68,20); display: inline-block;"></span> 
+            Destination
+        </div>
+      </div>
+      <div class="col">
+        <div style="font-size: 23px;">
+          <span class="square" style="height:20px; width:20px; background-color:rgb(45, 196, 129); display: inline-block;"></span> 
+          Explored Nodes
+      </div>
+    </div>
+    <div class="col">
+      <div style="font-size: 23px;">
+        <span class="square" style="height:5px; width:30px; background-color:rgb(255, 0, 200); display: inline-block;"></span> 
+        Shortest Path
+    </div>
+  </div>
+      </div>
+    </div>
+
+    <div id="sketch01" style="position: relative;"> </div>
+  </div>
+
+
+  <!-- Optional JavaScript -->
+  <script type="text/javascript" src="sketch.js"></script>
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

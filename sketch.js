@@ -151,8 +151,8 @@ function BFS_initialize() {
 }
 function draw() {
     if (started) {
+        // Algorithm for A* Search
         if (algo == "A* Search") {
-            // Algorithm for A* Search
             if (openSet.length > 0) {
                 current = lowestFscoreNode();
                 if (current == destination) {
@@ -195,6 +195,7 @@ function draw() {
             }
         }
 
+        // Algorithm for Breadth First Search
         if (algo == "Breadth First Search") {
             if (openSet.length > 0) {
                 current = openSet[0]
@@ -223,6 +224,7 @@ function draw() {
             }
         }
 
+        // Algorithm for Depth First Search
         if (algo == "Depth First Search") {
             if (openSet.length > 0) {
                 console.log(openSet)

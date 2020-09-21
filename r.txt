@@ -1,0 +1,21 @@
+Language:
+    Python
+
+Back End:
+    Django
+
+Database:
+    PostgreSQL
+
+Front End:
+    HTML
+    CSS
+    Bootstrap
+
+Disadvantages:
+    The architecture of our project 
+    has been drawn assuming for a small and simple corporation.
+    So if the user base gets larger then we'll face some issues, specially database related. As we've used PostgreSQL as our database, so for lots of
+    SELECT queries the latency will increase, in that case we might consider other relational models. 
+    Another disadvantage of the project is its manual workflow, for every complaint the admin himself/herself has to assign it
+    to some employee, which we might think of changing if the userbase gets larger, intigrating Machine Learning model would be a good choice here.

@@ -1,19 +1,77 @@
-let started = false;
-let algo = null
-let startButton;
-let screen;
-let graph;
-let rows;
-let cols;
-let resolution = 30;
-let openSet = [];
-let closedSet = [];
+// Declaring needed variables
+let started
+let algo
+let startButton
+let screen
+let graph
+let rows
+let cols
+let resolution
+let openSet
+let closedSet
 let source;
 let destination;
-let shortestPath = [];
+let shortestPath
 let w;
 let h;
-srcORdstClicked = false
+let sourceSelected
+let destinationSelected
+// sourceColor = color(87, 50, 168)
+// destColor = color(140, 68, 20)
+
+function resetCanvas(){
+    console.log(new Node(0,0))
+    // Initializing variables
+    started = false
+    algo = null
+    resolution = 30
+    openSet = []
+    closedSet = []
+    shortestPath = []
+    sourceSelected = false
+    destinationSelected = false
+
+    rows = floor(height / resolution);
+    cols = floor(width / resolution);
+    w = width / cols;
+    h = height / rows;
+    graph = twoDArray(rows, cols);
+    startButton = document.getElementById("startButton")
+    startButton.disabled = false
+    startButton.innerHTML = "Visualize"
+    startButton.onclick = start;
+
+     // creating the graph 
+     for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            graph[i][j] = new Node(i, j);
+        }
+    }
+    // determining neighbors of each vertices
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            graph[i][j].addNeighbor();
+        }
+    }
+    // determining source and destination from the vertices
+    source = graph[cols - 20][rows - 10];
+    destination = graph[cols - 10][rows - 10];
+    //making sure source and destination aren't obstacls;
+    source.obstacle = false;
+    destination.obstacle = false;
+
+    background(255);
+    // revealing the canvas on screen
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            graph[i][j].show(255);
+        }
+    }
+    source.show(color(87, 50, 168));
+    destination.show(color(140, 68, 20));
+    noLoop();
+    console.log(openSet)
+}
 
 function Node(i, j) {
     this.i = i;
@@ -27,19 +85,20 @@ function Node(i, j) {
     this.obstacle = false;
     this.parent = undefined;
     this.neighbors = []
+    this.dragging = false
 
     this.show = (color) => {
         console.log(color)
         let x = this.x;
         let y = this.y;
         let r = this.r;
-        // if (this.obstacle) {
-        //     fill(128, 128, 128);
-        // }
-        // else {
-        //     fill(color);
-        // }
-        fill(color);
+        if (this.obstacle) {
+            fill(128, 128, 128);
+        }
+        else {
+            fill(color);
+        }
+        // fill(color);
         stroke(244, 248, 252);
         strokeWeight(2);
         rect(x, y, r, r);
@@ -60,9 +119,15 @@ function Node(i, j) {
         // if (i < cols - 1 && j > 0) this.neighbors.push(graph[i + 1][j - 1]);
     }
     this.clicked = () => {
-        if(srcORdstClicked){
+        if(sourceSelected){
+            // if(this == source){
             this.show(color(87, 50, 168))
-            srcORdstClicked = false
+            
+            // source = this
+            // srcORdstClicked = false
+        }
+        else if(destinationSelected){
+            this.show(color(140, 68, 20))
         }
         else if(!this.obstacle){
             this.obstacle = true;
@@ -95,56 +160,19 @@ function centerCanvas() {
 }
 
 function setup() {
+    // making the canvas
     screen = createCanvas(windowWidth - (windowHeight * 0.05), windowHeight - (windowHeight * 0.15));
     screen.parent("sketch01");
     centerCanvas();
-    rows = floor(height / resolution);
-    cols = floor(width / resolution);
-    w = width / cols;
-    h = height / rows;
-    graph = twoDArray(rows, cols);
-    startButton = document.getElementById("startButton")
-    startButton.onclick = start;
     // startButton.parent("sketch01");
-    // creating the graph 
-    for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-            graph[i][j] = new Node(i, j);
-        }
-    }
-    // determining neighbors of each vertices
-    for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-            graph[i][j].addNeighbor();
-        }
-    }
-    // determining source and destination from the vertices
-    source = graph[cols - 20][rows - 10];
-    destination = graph[cols - 10][rows - 10];
-    //making sure source and destination aren't obstacls;
-    source.obstacle = false;
-    destination.obstacle = false;
-
-    BFS_initialize()
-
-    background(255);
-    // revealing the canvas on screen
-    for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-            graph[i][j].show(255);
-        }
-    }
-    source.show(color(87, 50, 168));
-    destination.show(color(140, 68, 20));
-    noLoop();
-    console.log(openSet)
+    resetCanvas()
 }
 
 function A_star_initialize() {
     openSet.push(source);
 }
 
-function BFS_initialize() {
+function BFSorDFS_initialize() {
     openSet.push(source);
     closedSet.push(source)
 
@@ -264,11 +292,11 @@ function draw() {
         }
 
         //Coloring the visited, unvisited vertices and the shortest path
-        for (Node of openSet) {
-            Node.show(color(45, 196, 129));
+        for (node of openSet) {
+            node.show(color(45, 196, 129));
         }
-        for (Node of closedSet) {
-            Node.show(color(255, 0, 0, 50));
+        for (node of closedSet) {
+            node.show(color(255, 0, 0, 50));
         }
         //initialize shortestPath array first
         shortestPath = [];
@@ -307,7 +335,13 @@ function start() {
         startButton.innerHTML = `Pick An Algorithm!`
         return
     }
-
+    if(algo == "A* Search"){
+        A_star_initialize()
+    }
+    else{
+        BFSorDFS_initialize()
+    }
+    
     started = true;
     startButton.disabled = true
     loop();
@@ -323,12 +357,19 @@ function mouseDragged() {
                 if(graph[i][j] != source && graph[i][j] != destination){
                     graph[i][j].clicked();
                 }
-                else{
+                if(sourceSelected){
                     console.log("HERE")
-                    srcORdstClicked = true
+                    // srcORdstClicked = true
                     // change prev source's color
                     source.show(255)
                     source = graph[i][j]
+                    // source.show(color(87, 50, 168))
+                    graph[i][j].clicked();
+                }
+                if(destinationSelected){
+                    // change prev source's color
+                    destination.show(255)
+                    destination = graph[i][j]
                     // source.show(color(87, 50, 168))
                     graph[i][j].clicked();
                 }
@@ -346,6 +387,45 @@ function mousePressed() {
                 console.log("in IF");
                 if(graph[i][j] != source && graph[i][j] != destination){
                     graph[i][j].clicked();
+                }
+                else{
+                    if(source === graph[i][j]){
+                        sourceSelected = true
+                    }
+                    if(destination === graph[i][j]){
+                        destinationSelected = true
+                    }
+                    // console.log("HERE")
+                    // srcORdstClicked = true
+                    // change prev source's color
+                    // source.show(255)
+                    // source = graph[i][j]
+                    // source.show(color(87, 50, 168))
+                    // graph[i][j].clicked();
+                }
+            }
+        }
+    }
+}
+
+function mouseReleased(){
+    if (sourceSelected || destinationSelected){
+        for (let i = 0; i < cols; i++) {
+            for (let j = 0; j < rows; j++) {
+                //let d = dist(mouseX, mouseY, graph[i][j].x, graph[i][j].y);
+                if (mouseX >= graph[i][j].x && mouseX <= graph[i][j].x + graph[i][j].r && mouseY >= graph[i][j].y && mouseY <= graph[i][j].y + graph[i][j].r) {
+                    if(sourceSelected){
+                        source = graph[i][j]
+                        source.obstacle = false
+                        source.show(color(87, 50, 168))
+                        sourceSelected = false
+                    }
+                    else{
+                        destination = graph[i][j]
+                        destination.obstacle = false
+                        destination.show(color(140, 68, 20))
+                        destinationSelected = false
+                    }
                 }
             }
         }
@@ -371,9 +451,9 @@ function heuristic(node, goal) {
 
 function lowestFscoreNode() {
     let minNode = openSet[0];
-    for (Node of openSet) {
-        if (Node.f < minNode.f) {
-            minNode = Node;
+    for (node of openSet) {
+        if (node.f < minNode.f) {
+            minNode = node;
         }
     }
     return minNode;

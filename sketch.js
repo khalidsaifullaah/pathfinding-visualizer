@@ -66,6 +66,19 @@ function resetCanvas(){
 
         destination = graph[x][y];
     }
+    // otherwise Reinitializing old source & destination from graph's new objects
+    else{
+        graph.forEach(row => { 
+            row.forEach((node) => {
+                if(node.i === source.i && node.j === source.j){
+                    source = node
+                }
+                if(node.i === destination.i && node.j === destination.j){
+                    destination = node
+                }
+            }) 
+        })
+    }
     //making sure source and destination aren't obstacls;
     source.obstacle = false;
     destination.obstacle = false;
@@ -128,6 +141,7 @@ function Node(i, j) {
         // if (i > 0 && j < rows - 1) this.neighbors.push(graph[i - 1][j + 1]);
         // if (i < cols - 1 && j > 0) this.neighbors.push(graph[i + 1][j - 1]);
     }
+
     this.clicked = () => {
         if(sourceSelected){
             // if(this == source){
@@ -427,8 +441,11 @@ function mousePressed() {
         for (let j = 0; j < rows; j++) {
             //let d = dist(mouseX, mouseY, graph[i][j].x, graph[i][j].y);
             if (mouseX >= graph[i][j].x && mouseX <= graph[i][j].x + graph[i][j].r && mouseY >= graph[i][j].y && mouseY <= graph[i][j].y + graph[i][j].r) {
-                console.log("in IF");
                 if(graph[i][j] != source && graph[i][j] != destination){
+                    console.log("in IF");
+                    console.log(graph[i][j])
+                    console.log(source)
+                    console.log(graph[i][j] === source)
                     graph[i][j].clicked();
                 }
                 else{

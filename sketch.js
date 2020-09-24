@@ -19,8 +19,8 @@ let destinationSelected
 // sourceColor = color(87, 50, 168)
 // destColor = color(140, 68, 20)
 
-function resetCanvas(){
-    console.log(new Node(0,0))
+function resetCanvas() {
+    console.log(new Node(0, 0))
     // Initializing variables
     started = false
     algo = null
@@ -41,8 +41,8 @@ function resetCanvas(){
     startButton.innerHTML = "Visualize"
     startButton.onclick = start;
 
-     // creating the graph 
-     for (let i = 0; i < cols; i++) {
+    // creating the graph 
+    for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
             graph[i][j] = new Node(i, j);
         }
@@ -54,29 +54,29 @@ function resetCanvas(){
         }
     }
     // Initializing random source and destination if not chosen
-    if(source === undefined || destination === undefined){
-        
-        x = Math.floor(Math.random()*cols/2)
-        y = Math.floor(Math.random()*rows)
+    if (source === undefined || destination === undefined) {
+
+        x = Math.floor(Math.random() * cols / 2)
+        y = Math.floor(Math.random() * rows)
 
         source = graph[x][y];
 
-        x = Math.floor(Math.random() * (cols - Math.floor((cols/2+1))) ) + Math.floor((cols/2+1));
-        y = Math.floor(Math.random()*rows)
+        x = Math.floor(Math.random() * (cols - Math.floor((cols / 2 + 1)))) + Math.floor((cols / 2 + 1));
+        y = Math.floor(Math.random() * rows)
 
         destination = graph[x][y];
     }
     // otherwise Reinitializing old source & destination from graph's new objects
-    else{
-        graph.forEach(row => { 
+    else {
+        graph.forEach(row => {
             row.forEach((node) => {
-                if(node.i === source.i && node.j === source.j){
+                if (node.i === source.i && node.j === source.j) {
                     source = node
                 }
-                if(node.i === destination.i && node.j === destination.j){
+                if (node.i === destination.i && node.j === destination.j) {
                     destination = node
                 }
-            }) 
+            })
         })
     }
     //making sure source and destination aren't obstacls;
@@ -122,8 +122,8 @@ function Node(i, j) {
             fill(color);
         }
         // fill(color);
-        stroke(244, 248, 252);
-        strokeWeight(2);
+        stroke(66, 148, 255, 90);
+        strokeWeight(1);
         rect(x, y, r, r);
     }
     this.addNeighbor = () => {
@@ -143,17 +143,17 @@ function Node(i, j) {
     }
 
     this.clicked = () => {
-        if(sourceSelected){
+        if (sourceSelected) {
             // if(this == source){
             this.show(color(87, 50, 168))
-            
+
             // source = this
             // srcORdstClicked = false
         }
-        else if(destinationSelected){
+        else if (destinationSelected) {
             this.show(color(140, 68, 20))
         }
-        else if(!this.obstacle){
+        else if (!this.obstacle) {
             this.obstacle = true;
             this.show(color(128, 128, 128));
         }
@@ -392,16 +392,37 @@ function start() {
         startButton.innerHTML = `Pick An Algorithm!`
         return
     }
-    if(algo != "Breadth First Search" && algo != "Depth First Search"){
+    if (algo != "Breadth First Search" && algo != "Depth First Search") {
         initialize()
     }
-    else{
+    else {
         BFSorDFS_initialize()
     }
-    
+
     started = true;
     startButton.disabled = true
     loop();
+}
+
+function throwObstacles() {
+    // It maintains obstacle's distribution in the graph
+    let weights = [
+        ["Obstacle", 30],
+        ["Non Obstacle", 70]
+    ]
+    console.log(weights[1][1])
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            if(graph[i][j] != source && graph[i][j] != destination){
+                // taking decision if we should make this node an obstacle or not
+                let decision = weightedRandom(weights)
+                if(decision === "Obstacle"){
+                    graph[i][j].obstacle = true
+                    graph[i][j].show()
+                }
+            }
+        }
+    }
 }
 
 function mouseDragged() {
@@ -411,10 +432,10 @@ function mouseDragged() {
             //let d = dist(mouseX, mouseY, graph[i][j].x, graph[i][j].y);
             if (mouseX >= graph[i][j].x && mouseX <= graph[i][j].x + graph[i][j].r && mouseY >= graph[i][j].y && mouseY <= graph[i][j].y + graph[i][j].r) {
                 console.log("in IF");
-                if(graph[i][j] != source && graph[i][j] != destination){
+                if (graph[i][j] != source && graph[i][j] != destination) {
                     graph[i][j].clicked();
                 }
-                if(sourceSelected){
+                if (sourceSelected) {
                     console.log("HERE")
                     // srcORdstClicked = true
                     // change prev source's color
@@ -423,7 +444,7 @@ function mouseDragged() {
                     // source.show(color(87, 50, 168))
                     graph[i][j].clicked();
                 }
-                if(destinationSelected){
+                if (destinationSelected) {
                     // change prev source's color
                     destination.show(255)
                     destination = graph[i][j]
@@ -441,18 +462,18 @@ function mousePressed() {
         for (let j = 0; j < rows; j++) {
             //let d = dist(mouseX, mouseY, graph[i][j].x, graph[i][j].y);
             if (mouseX >= graph[i][j].x && mouseX <= graph[i][j].x + graph[i][j].r && mouseY >= graph[i][j].y && mouseY <= graph[i][j].y + graph[i][j].r) {
-                if(graph[i][j] != source && graph[i][j] != destination){
+                if (graph[i][j] != source && graph[i][j] != destination) {
                     console.log("in IF");
                     console.log(graph[i][j])
                     console.log(source)
                     console.log(graph[i][j] === source)
                     graph[i][j].clicked();
                 }
-                else{
-                    if(source === graph[i][j]){
+                else {
+                    if (source === graph[i][j]) {
                         sourceSelected = true
                     }
-                    if(destination === graph[i][j]){
+                    if (destination === graph[i][j]) {
                         destinationSelected = true
                     }
                     // console.log("HERE")
@@ -468,23 +489,42 @@ function mousePressed() {
     }
 }
 
-function mouseReleased(){
-    if (sourceSelected || destinationSelected){
+function mouseReleased() {
+    if (sourceSelected || destinationSelected) {
         for (let i = 0; i < cols; i++) {
             for (let j = 0; j < rows; j++) {
                 //let d = dist(mouseX, mouseY, graph[i][j].x, graph[i][j].y);
                 if (mouseX >= graph[i][j].x && mouseX <= graph[i][j].x + graph[i][j].r && mouseY >= graph[i][j].y && mouseY <= graph[i][j].y + graph[i][j].r) {
-                    if(sourceSelected){
-                        source = graph[i][j]
-                        source.obstacle = false
-                        source.show(color(87, 50, 168))
-                        sourceSelected = false
+                    if (sourceSelected) {
+                        if (graph[i][j] === destination) {
+                            source = graph[i - 1][j]
+                            source.obstacle = false
+                            graph[i][j].show(color(140, 68, 20))
+                            source.show(color(87, 50, 168))
+                            sourceSelected = false
+                        }
+                        else {
+                            source = graph[i][j]
+                            source.obstacle = false
+                            source.show(color(87, 50, 168))
+                            sourceSelected = false
+                        }
                     }
-                    else{
-                        destination = graph[i][j]
-                        destination.obstacle = false
-                        destination.show(color(140, 68, 20))
-                        destinationSelected = false
+                    else {
+                        if (graph[i][j] === source) {
+
+                            destination = graph[i - 1][j]
+                            destination.obstacle = false
+                            source.show(color(87, 50, 168))
+                            destination.show(color(140, 68, 20))
+                            destinationSelected = false
+                        }
+                        else {
+                            destination = graph[i][j]
+                            destination.obstacle = false
+                            destination.show(color(140, 68, 20))
+                            destinationSelected = false
+                        }
                     }
                 }
             }
@@ -529,3 +569,30 @@ function lowestHeuristicNode() {
     return minNode;
 }
 
+function weightedRandom(data) {
+    // First, we loop the main dataset to count up the total weight. We're starting the counter at one because the upper boundary of Math.random() is exclusive.
+    let total = 1;
+    for (let i = 0; i < data.length; ++i) {
+        total += data[i][1];
+    }
+
+    // Total in hand, we can now pick a random value akin to our
+    // random index from before.
+    const threshold = Math.floor(Math.random() * total);
+
+    // Now we just need to loop through the main data one more time
+    // until we discover which value would live within this
+    // particular threshold. We need to keep a running count of
+    // weights as we go, so let's just reuse the "total" variable
+    // since it was already declared.
+    total = 0;
+    for (let i = 0; i < data.length; ++i) {
+        // Add the weight to our running total.
+        total += data[i][1];
+
+        // If this value falls within the threshold, we're done!
+        if (total >= threshold) {
+            return data[i][0];
+        }
+    }
+}

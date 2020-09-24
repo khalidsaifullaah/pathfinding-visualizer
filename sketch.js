@@ -53,9 +53,19 @@ function resetCanvas(){
             graph[i][j].addNeighbor();
         }
     }
-    // determining source and destination from the vertices
-    source = graph[cols - 20][rows - 10];
-    destination = graph[cols - 10][rows - 10];
+    // Initializing random source and destination if not chosen
+    if(source === undefined || destination === undefined){
+        
+        x = Math.floor(Math.random()*cols/2)
+        y = Math.floor(Math.random()*rows)
+
+        source = graph[x][y];
+
+        x = Math.floor(Math.random() * (cols - Math.floor((cols/2+1))) ) + Math.floor((cols/2+1));
+        y = Math.floor(Math.random()*rows)
+
+        destination = graph[x][y];
+    }
     //making sure source and destination aren't obstacls;
     source.obstacle = false;
     destination.obstacle = false;
@@ -168,7 +178,7 @@ function setup() {
     resetCanvas()
 }
 
-function A_star_initialize() {
+function initialize() {
     openSet.push(source);
 }
 
@@ -187,14 +197,16 @@ function draw() {
                     noLoop();
                     console.log("We're Done!")
                 }
+
                 //removing the "current" vertex from openSet and adding it to closedSet
                 var removeIndex = openSet.map(function (item) { return item; }).indexOf(current);
                 openSet.splice(removeIndex, 1);
                 closedSet.push(current);
 
                 for (neighbor of current.neighbors) {
+                    // Checking to see if the node is valid
                     if (!closedSet.includes(neighbor) && !neighbor.obstacle) {
-                        gScore = current.g + 1;
+                        gScore = current.g + heuristic(neighbor, current);
                         let isGbetter = false;
                         if (openSet.includes(neighbor)) {
                             if (gScore < neighbor.g) {
@@ -212,6 +224,37 @@ function draw() {
                             neighbor.f = neighbor.g + neighbor.h;
                             neighbor.parent = current;
                         }
+                    }
+                }
+
+            }
+            else {
+                console.log('no solution');
+                noLoop();
+                return;
+            }
+        }
+
+        // Algorithm for Greedy Best First Search Search
+        if (algo == "Greedy Best First Search") {
+            if (openSet.length > 0) {
+                current = lowestHeuristicNode();
+                if (current == destination) {
+                    noLoop();
+                    console.log("We're Done!")
+                }
+
+                //removing the "current" vertex from openSet and adding it to closedSet
+                var removeIndex = openSet.map(function (item) { return item; }).indexOf(current);
+                openSet.splice(removeIndex, 1);
+                closedSet.push(current);
+
+                for (neighbor of current.neighbors) {
+                    // Checking to see if the node is valid
+                    if (!closedSet.includes(neighbor) && !openSet.includes(neighbor) && !neighbor.obstacle) {
+                        neighbor.h = heuristic(neighbor, destination);
+                        neighbor.parent = current;
+                        openSet.push(neighbor)
                     }
                 }
 
@@ -335,8 +378,8 @@ function start() {
         startButton.innerHTML = `Pick An Algorithm!`
         return
     }
-    if(algo == "A* Search"){
-        A_star_initialize()
+    if(algo != "Breadth First Search" && algo != "Depth First Search"){
+        initialize()
     }
     else{
         BFSorDFS_initialize()
@@ -453,6 +496,16 @@ function lowestFscoreNode() {
     let minNode = openSet[0];
     for (node of openSet) {
         if (node.f < minNode.f) {
+            minNode = node;
+        }
+    }
+    return minNode;
+}
+
+function lowestHeuristicNode() {
+    let minNode = openSet[0];
+    for (node of openSet) {
+        if (node.h < minNode.h) {
             minNode = node;
         }
     }

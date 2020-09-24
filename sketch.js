@@ -413,10 +413,10 @@ function throwObstacles() {
     console.log(weights[1][1])
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
-            if(graph[i][j] != source && graph[i][j] != destination){
+            if (graph[i][j] != source && graph[i][j] != destination) {
                 // taking decision if we should make this node an obstacle or not
                 let decision = weightedRandom(weights)
-                if(decision === "Obstacle"){
+                if (decision === "Obstacle") {
                     graph[i][j].obstacle = true
                     graph[i][j].show()
                 }

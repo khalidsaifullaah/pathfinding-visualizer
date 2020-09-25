@@ -6,6 +6,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <!-- Github stuff -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
 
@@ -27,14 +30,14 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
         <a class="navbar-brand" href="https://khalidsaifullaah.github.io/pathfinding-visualizer/">
-          <h3>Path Finder</h3>
+          <h3><strong>Path Finder</strong></h3>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto nav-fill w-100">
+          <ul class="navbar-nav mr-auto nav-fill w-100 align-items-center">
             <li class="nav-item dropdown active">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -57,43 +60,50 @@
             <li class="nav-item active">
               <a class="nav-link" href="#" onclick="resetCanvas()">Clear<span class="sr-only">(current)</span></a>
             </li>
+            <div class="row justify-content-end text-center">
+              <div class="col-12"><p class="p-0 m-0" style="font-size: 12px;">by <span style="color: brown; font-weight: bold;">&lt;KHAL/D&gt;</span></p></div>              
+              <!-- <div class="col text-center align-self-center">
+                <a class="github-button" href="https://github.com/ntkme/github-buttons" data-color-scheme="no-preference: dark; light: dark; dark: dark;" aria-label="Star ntkme/github-buttons on GitHub">Star</a></div> -->
+              <div class="col text-center">
+                <a class="github-button" href="https://github.com/khalidsaifullaah/pathfinding-visualizer" data-color-scheme="no-preference: dark; light: dark; dark: dark;" aria-label="Star ntkme/github-buttons on GitHub">Star</a></div>
+            </div>
           </ul>
         </div>
       </div>
     </nav>
 
     <div class="container-fluid pt-4 pb-4">
-      <div class="row text-center">
+      <div class="row text-center" style="font-size: 23px;">
         <div class="col-sm-6 col-md">
-          <div style="font-size: 23px;">
+          <div>
             <span class="square"
               style="height:20px; width:20px; background-color:rgb(87,50,168); display: inline-block;"></span>
             Source
           </div>
         </div>
         <div class="col-sm-6 col-md">
-          <div style="font-size: 23px;">
+          <div>
             <span class="square"
               style="height:20px; width:20px; background-color:rgb(140,68,20); display: inline-block;"></span>
             Destination
           </div>
         </div>
         <div class="col-sm-6 col-md">
-          <div style="font-size: 23px;">
+          <div>
             <span class="square"
               style="height:20px; width:20px; background-color:rgb(128,128,128); display: inline-block;"></span>
             Obstacles
           </div>
         </div>
         <div class="col-sm-6 col-md">
-          <div style="font-size: 23px;">
+          <div>
             <span class="square"
               style="height:20px; width:20px; background-color:rgb(45, 196, 129); display: inline-block;"></span>
             Explored Nodes
           </div>
         </div>
         <div class="col-sm-6 col-md">
-          <div style="font-size: 23px;">
+          <div>
             <span class="square"
               style="height:5px; width:30px; background-color:rgb(255, 0, 200); display: inline-block;"></span>
             Shortest Path

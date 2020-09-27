@@ -462,7 +462,7 @@ function dropdown(event) {
         message.innerHTML = `Insight: Depth First Search (DFS) <span style = "font-weight: bold;">Does Not Gurantee</span> Shortest Path Though Is A Feasible Choice For Memory <span style = "font-weight: bold;">If The Destination Is Far Away From The Source</span>`
     }
     else{
-        message.innerHTML = `Insight: Greedy Best-First Search <span style = "font-weight: bold;">Does Not Gurantee</span> Shortest Path Though As It Takes Decision Solely Based On <span style = "font-weight: bold;">Heuristics</span>`
+        message.innerHTML = `Insight: Greedy Best-First Search <span style = "font-weight: bold;">Does Not Gurantee</span> Shortest Path As It Takes Decision Solely Based On <span style = "font-weight: bold;">Heuristics</span>`
     }
 }
 

@@ -72,7 +72,6 @@ _*Note\: The GIF images are unashamedly taken from Wikipedia as well*_
 
 - [Daniel Shiffman's](https://github.com/shiffman/) video resources on P5.js helped me a lot to get a clear understanding about the library.
 - [Clément Mihailescu's](https://github.com/clementmihailescu) similar project inspired me a lot for the UI and the project itself
-- [Marked - a markdown parser](https://github.com/chjj/marked)
 - [P5.js](https://p5js.org/) The library behind the viz
 
 

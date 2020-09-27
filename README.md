@@ -14,10 +14,7 @@
   <a href="#credits">Credits</a>
 </p>
 
-![DEMO](https://drive.google.com/uc?export=view&id=1lb9WIdw1yKniYq_NK0xpBtsXBCuAu_Sz)
-
-
-<a href="https://drive.google.com/uc?export=view&id=1lb9WIdw1yKniYq_NK0xpBtsXBCuAu_Sz"><img src="https://drive.google.com/uc?export=view&id=1lb9WIdw1yKniYq_NK0xpBtsXBCuAu_Sz" style="width: 500px; max-width: 100%; height: auto" title="DEMO" /></a>
+![DEMO](https://github.com/khalidsaifullaah/pathfinding-visualizer/blob/master/project_demo.gif?raw=true)
 
 
 ## Live Demo
@@ -25,9 +22,9 @@
 You can [play-around](https://github.com/amitmerchant1990/electron-markdownify/releases/tag/v1.2.0) with the live demo of the project.
 
 ## Development Stack
-<img style="width: 33%; height: 20%;" src="https://www.ad-ventures.cc/static/aca21772a37e26761da9d791044f4e45/3cb25/p5js-pink.png" alt="">
-<img style="width: 33%; height: 20%;" src="https://www.w3.org/html/logo/downloads/HTML5_1Color_Black.svg" alt="">
-<img style="width: 33%; height: 20%;" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-social-logo.png" alt="">
+<img style="max-width: 33%;" src="https://www.ad-ventures.cc/static/aca21772a37e26761da9d791044f4e45/3cb25/p5js-pink.png" alt="">
+<img style="max-width: 33%;" src="https://www.w3.org/html/logo/downloads/HTML5_1Color_Black.svg" alt="">
+<img style="max-width: 33%;" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-social-logo.png" alt="">
 
 ## Brief Info About The Algorithms
 

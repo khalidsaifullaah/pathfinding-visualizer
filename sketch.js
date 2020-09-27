@@ -473,8 +473,7 @@ function start() {
         return
     }
    else if(algo === "Dijkstra"){
-        // dijkstraInitialize()
-        initialize()
+        dijkstraInitialize()
     }
     else if (algo != "Breadth First Search" && algo != "Depth First Search") {
         initialize()

@@ -45,6 +45,7 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#" onclick="dropdown(event)">A* Search</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)">Dijkstra</a>
                 <a class="dropdown-item" href="#" onclick="dropdown(event)">Breadth First Search</a>
                 <a class="dropdown-item" href="#" onclick="dropdown(event)">Depth First Search</a>
                 <a class="dropdown-item" href="#" onclick="dropdown(event)">Greedy Best First Search</a>
@@ -99,6 +100,13 @@
           <div>
             <span class="square"
               style="height:20px; width:20px; background-color:rgb(45, 196, 129); display: inline-block;"></span>
+            Unxplored Nodes
+          </div>
+        </div>
+        <div class="col-sm-6 col-md">
+          <div>
+            <span class="square"
+              style="height:20px; width:20px; background-color:rgb(255, 205, 205); display: inline-block;"></span>
             Explored Nodes
           </div>
         </div>
@@ -106,7 +114,7 @@
           <div>
             <span class="square"
               style="height:5px; width:30px; background-color:rgb(255, 0, 200); display: inline-block;"></span>
-            Shortest Path
+            Path
           </div>
         </div>
       </div>

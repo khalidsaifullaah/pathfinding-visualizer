@@ -102,9 +102,15 @@ function Node(i, j) {
     this.x = this.i * resolution;
     this.y = this.j * resolution;
     this.r = resolution - 1;
+
+    // needed for A* and Greedy
     this.f = 0;
     this.g = 0;
     this.h = 0;
+
+    // needed for Dijkstra
+    this.d = Infinity
+
     this.obstacle = false;
     this.parent = undefined;
     this.neighbors = []
@@ -192,6 +198,17 @@ function setup() {
     resetCanvas()
 }
 
+function dijkstraInitialize(){
+    source.d = 0
+
+    // Creating a openSet initializing with all the node of the graph
+    graph.forEach( row => {
+        row.forEach( node => {
+            openSet.push(node)
+        })
+    })
+}
+
 function initialize() {
     openSet.push(source);
 }
@@ -203,6 +220,43 @@ function BFSorDFS_initialize() {
 }
 function draw() {
     if (started) {
+        // Algorithm for Dijkstra
+        if (algo == "Dijkstra") {
+            if (openSet.length > 0) {
+                current = lowestDscoreNode(); //It'll return the node least d value
+                
+                // Means there's no possible path with finite distance from source to destination
+                if(current.d === Infinity){
+                    console.log('no solution');
+                    noLoop();
+                    return;
+                }
+            
+                if (current === destination) {
+                    noLoop();
+                    console.log("We're Done!")
+                }
+
+                //removing the "current" vertex from openSet and adding it to closedSet
+                var removeIndex = openSet.map(function (item) { return item; }).indexOf(current);
+                openSet.splice(removeIndex, 1);
+                closedSet.push(current)
+                for (neighbor of current.neighbors) {
+                    // Checking to see if the node is valid
+                    if (!neighbor.obstacle) {
+                        // let's calculate dist(current)+cost_between(current,neighbor)
+                        dScore = current.d + 1
+                        if(dScore < neighbor.d){
+                            neighbor.d = dScore
+                            neighbor.parent = current
+                        }
+                        
+                    }
+                }
+
+            }
+        }
+
         // Algorithm for A* Search
         if (algo == "A* Search") {
             if (openSet.length > 0) {
@@ -350,7 +404,14 @@ function draw() {
 
         //Coloring the visited, unvisited vertices and the shortest path
         for (node of openSet) {
-            node.show(color(45, 196, 129));
+            if(algo === "Dijkstra"){
+                if(node.d != Infinity){
+                    node.show(color(45, 196, 129));    
+                }
+            }
+            else{
+                node.show(color(45, 196, 129));
+            }
         }
         for (node of closedSet) {
             node.show(color(255, 0, 0, 50));
@@ -392,7 +453,10 @@ function start() {
         startButton.innerHTML = `Pick An Algorithm!`
         return
     }
-    if (algo != "Breadth First Search" && algo != "Depth First Search") {
+    if(algo === "Dijkstra"){
+        dijkstraInitialize()
+    }
+    else if (algo != "Breadth First Search" && algo != "Depth First Search") {
         initialize()
     }
     else {
@@ -553,6 +617,16 @@ function lowestFscoreNode() {
     let minNode = openSet[0];
     for (node of openSet) {
         if (node.f < minNode.f) {
+            minNode = node;
+        }
+    }
+    return minNode;
+}
+
+function lowestDscoreNode() {
+    let minNode = openSet[0];
+    for (node of openSet) {
+        if (node.d < minNode.d) {
             minNode = node;
         }
     }

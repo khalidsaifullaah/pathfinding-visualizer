@@ -40,6 +40,8 @@ function resetCanvas() {
     startButton.disabled = false
     startButton.innerHTML = "Visualize"
     startButton.onclick = start;
+    let message = document.getElementById('message')
+    message.innerHTML = ""
 
     // creating the graph 
     for (let i = 0; i < cols; i++) {
@@ -185,13 +187,13 @@ function windowResized() {
 
 function centerCanvas() {
     var x = ((windowWidth) - width) / 2;
-    var y = ((windowHeight - (windowHeight * 0.15)) - height) / 2;
+    var y = ((windowHeight - (windowHeight * 0.20)) - height) / 2;
     screen.position(x, y);
 }
 
 function setup() {
     // making the canvas
-    screen = createCanvas(windowWidth - (windowHeight * 0.05), windowHeight - (windowHeight * 0.15));
+    screen = createCanvas(windowWidth - (windowHeight * 0.05), windowHeight - (windowHeight * 0.20));
     screen.parent("sketch01");
     centerCanvas();
     // startButton.parent("sketch01");
@@ -255,6 +257,7 @@ function draw() {
                 }
 
             }
+
         }
 
         // Algorithm for A* Search
@@ -445,6 +448,22 @@ function dropdown(event) {
     algo = event.target.text
     let startButton = document.getElementById('startButton')
     startButton.innerHTML = `Start ${algo}`
+    let message = document.getElementById('message')
+    if(algo === "A* Search"){
+        message.innerHTML = `Insight: A* Search <span style = "font-weight: bold;">Gurantees</span> Shortest Path`
+    }
+    else if(algo === "Dijkstra"){
+        message.innerHTML = `Insight: Dijkstra's Algorithm Or A Variant Of It Is Known As UCS <span style = "font-weight: bold;">Gurantees</span> Shortest Path`
+    }
+    else if(algo === "Breadth First Search"){
+        message.innerHTML = `Insight: Breadth First Search (BFS) <span style = "font-weight: bold;">Gurantees</span> Shortest Path In An <span style = "font-weight: bold;">Unweighted Graph</span> And A Feasible Choice <span style = "font-weight: bold;">If The Destination Is Closer To The Source</span>`
+    }
+    else if(algo === "Depth First Search"){
+        message.innerHTML = `Insight: Depth First Search (DFS) <span style = "font-weight: bold;">Does Not Gurantee</span> Shortest Path Though Is A Feasible Choice For Memory <span style = "font-weight: bold;">If The Destination Is Far Away From The Source</span>`
+    }
+    else{
+        message.innerHTML = `Insight: Greedy Best-First Search <span style = "font-weight: bold;">Does Not Gurantee</span> Shortest Path Though As It Takes Decision Solely Based On <span style = "font-weight: bold;">Heuristics</span>`
+    }
 }
 
 function start() {
@@ -453,8 +472,9 @@ function start() {
         startButton.innerHTML = `Pick An Algorithm!`
         return
     }
-    if(algo === "Dijkstra"){
-        dijkstraInitialize()
+   else if(algo === "Dijkstra"){
+        // dijkstraInitialize()
+        initialize()
     }
     else if (algo != "Breadth First Search" && algo != "Depth First Search") {
         initialize()
@@ -490,6 +510,9 @@ function throwObstacles() {
 }
 
 function mouseDragged() {
+    if(started){
+        return
+    }
     console.log("clicked");
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
@@ -521,6 +544,9 @@ function mouseDragged() {
 }
 
 function mousePressed() {
+    if(started){
+        return
+    }
     console.log("clicked2");
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {

@@ -23,9 +23,9 @@ You can [play-around](https://github.com/amitmerchant1990/electron-markdownify/r
 
 ## Development Stack
 <h1 align="center">
-<img style="max-width: 33%;" width="33%" src="https://www.ad-ventures.cc/static/aca21772a37e26761da9d791044f4e45/3cb25/p5js-pink.png" alt="P5.js logo">
-<img style="max-width: 33%;" width="200" src="https://www.w3.org/html/logo/downloads/HTML5_1Color_Black.svg" alt="HTML logo">
-<img style="max-width: 33%;" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-social-logo.png" alt="Bootstrap logo">
+<img width="30%" src="https://www.ad-ventures.cc/static/aca21772a37e26761da9d791044f4e45/3cb25/p5js-pink.png" alt="P5.js logo">
+<img width="30%" src="https://www.w3.org/html/logo/downloads/HTML5_1Color_Black.svg" alt="HTML logo">
+<img width="30%" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-social-logo.png" alt="Bootstrap logo">
 </h1>
 
 ## Brief Info About The Algorithms

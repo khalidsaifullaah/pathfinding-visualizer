@@ -19,7 +19,7 @@
 
 ## Live Demo
 
-You can [play-around](https://github.com/amitmerchant1990/electron-markdownify/releases/tag/v1.2.0) with the live demo of the project.
+You can [play-around](https://khalidsaifullaah.github.io/pathfinding-visualizer/) with the live demo of the project.
 
 ## Development Stack
 <h1 align="center">
